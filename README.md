@@ -59,7 +59,7 @@ nmap -p- -sV -sC -Pn 192.168.56.103
  ``` bash
 http://192.168.56.103
 ```
-<img src="Photo/BLUEMOON1.png">
+<img src="Screenshots/BLUEMOON1.png">
 
 
 **Directory Brute Force**
