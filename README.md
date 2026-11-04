@@ -241,7 +241,7 @@ Result:
 🏆 Root Flag: Fl4g{r00t-H4ckTh3P14n3t0nc34g41n}
 ```
 
-# Phase 5: Threat Mitigation & Defense
+# 🛡️ Phase 5: Threat Mitigation & Defense
 To secure this system against similar attack vectors, the following remediations are recommended:
 
 
