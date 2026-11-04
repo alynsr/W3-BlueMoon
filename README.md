@@ -1,4 +1,4 @@
-# 🌙 System Hacking Assessment: BlueMoon 2021
+# 🌙 BlueMoon 2021: Write-Up
 **Module:** System Hacking (Chapter 2, Week 3)  
 **Target:** BlueMoon: 2021 (VulnHub)  
 
@@ -265,3 +265,4 @@ To secure this system against similar attack vectors, the following remediations
  | Docker      | Exploiting container socket permissions for root breakout.
 
 ------------------------------------------------------------------------
+*⭐ Documented for academic research and controlled penetration testing environments.*
