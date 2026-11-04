@@ -9,7 +9,7 @@
 | Parameter | Assignment Details |
 | :--- | :--- |
 | **Target IP** | `192.168.56.103` |
-| **Network Subnet** | `192.168.56.0/24` (VirtualBox Host-Only) |
+| **Network Subnet** | `192.168.56.0/24` |
 | **Assessment Type** | Boot-to-Root Penetration Test |
 | **Objective** | Gain initial access, escalate to root, and capture all flags. |
 
